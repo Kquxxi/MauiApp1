@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiApp1.MainPage"
+    BackgroundColor="Black">
+
+    <Grid>
+        <!-- Tło -->
+        <Image Source="space_background.png"
+               Aspect="AspectFill"
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Licznik punktów -->
+        <Label x:Name="PointsLabel"
+       Text="Punkty: 0"
+       FontSize="36"
+       FontAttributes="Bold"
+       HorizontalOptions="Center"
+       VerticalOptions="Start"
+       Margin="0,50,0,0"
+       TextColor="Aqua">
+            <Label.Shadow>
+                <Shadow Brush="Aqua" Opacity="0.8" Radius="10" />
+            </Label.Shadow>
+        </Label>
+
+        <!-- Planeta na pierwszym planie -->
+        <Image x:Name="PlanetImage"
+               Source="planet.png"
+               WidthRequest="350"
+               HeightRequest="350"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="Center">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPlanetTapped" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <!-- Przyciski na dole -->
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="End"
+                     HorizontalOptions="Center"
+                     Spacing="10"
+                     Padding="20,10,20,30">
+            <Button x:Name="ClaimPointsButton"
+                    Text="Odbierz darmowe punkty"
+                    FontSize="16"
+                    BackgroundColor="#1E90FF"
+                    TextColor="White"
+                    Clicked="OnClaimPointsClicked" />
+            <Button x:Name="OpenUpgradesButton"
+                    Text="Ulepszenia"
+                    FontSize="16"
+                    BackgroundColor="#FFD700"
+                    TextColor="Black"
+                    Clicked="OnOpenUpgradesClicked" />
+        </StackLayout>
+
+        <!-- Popup z ulepszeniami -->
+        <Grid x:Name="UpgradesPopup"
+              IsVisible="False"
+              BackgroundColor="#000000AA"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              Padding="20">
+            <Border BackgroundColor="#111111"
+                    Stroke="#FFD700"
+                    StrokeThickness="3"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="15"
+                    WidthRequest="350"
+                    HeightRequest="450">
+                <StackLayout>
+                    <!-- Tytuł popupu -->
+                    <Label Text="Ulepszenia"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#FFD700"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,20" />
+
+                    <!-- Lista ulepszeń -->
+                    <ScrollView>
+                        <StackLayout Spacing="15">
+                            <!-- Ulepszenie punktów za klik -->
+                            <StackLayout Padding="10" BackgroundColor="#1A1A1A" Spacing="5">
+                                <Label Text="Więcej punktów za klik"
+                                       TextColor="White"
+                                       FontSize="16" />
+                                <Label x:Name="ClickUpgradeCostLabel" 
+                                       Text="Koszt: 100 pkt"
+                                       TextColor="#FFD700"
+                                       FontSize="14" />
+                                <Button Text="Kup"
+                                        BackgroundColor="#1E90FF"
+                                        TextColor="White"
+                                        Clicked="OnBuyUpgradeClicked"
+                                        CornerRadius="15"
+                                        HeightRequest="40" />
+                            </StackLayout>
+
+                            <!-- Ulepszenie punktów za nieaktywność -->
+                            <StackLayout Padding="10" BackgroundColor="#1A1A1A" Spacing="5">
+                                <Label Text="Więcej punktów za nieaktywność"
+                                       TextColor="White"
+                                       FontSize="16" />
+                                <Label x:Name="PassiveUpgradeCostLabel" 
+                                       Text="Koszt: 200 pkt"
+                                       TextColor="#FFD700"
+                                       FontSize="14" />
+                                <Button Text="Kup"
+                                        BackgroundColor="#1E90FF"
+                                        TextColor="White"
+                                        Clicked="OnBuyPassiveUpgradeClicked"
+                                        CornerRadius="15"
+                                        HeightRequest="40" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+
+                    <!-- Przycisk zamknięcia -->
+                    <Button Text="Zamknij"
+                            BackgroundColor="#FF4444"
+                            TextColor="White"
+                            Clicked="OnCloseUpgradesClicked"
+                            CornerRadius="20"
+                            HeightRequest="50"
+                            WidthRequest="150"
+                            HorizontalOptions="Center"
+                            VerticalOptions="End"
+                            Margin="0,20,0,0" />
+                </StackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Powiadomienie -->
+        <Grid x:Name="NotificationPopup"
+              IsVisible="False"
+              BackgroundColor="#00000080"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              Padding="20">
+            <Border BackgroundColor="#1A1A1A"
+                    Stroke="#FFD700"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="15"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="300"
+                    HeightRequest="150"
+                    Opacity="0.9">
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label x:Name="NotificationMessage"
+                           Text="Powiadomienie"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalTextAlignment="Center" />
+                    <Button Text="OK"
+                            BackgroundColor="#1E90FF"
+                            TextColor="White"
+                            Clicked="OnNotificationCloseClicked"
+                            CornerRadius="15"
+                            WidthRequest="100"
+                            HorizontalOptions="Center" />
+                </StackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
